@@ -163,8 +163,98 @@ function convertToRomanNumerals(num) {
  *  '10,5'    => 'one zero point five'
  *  '1950.2'  => 'one nine five zero point two'
  */
-function convertNumberToString(/* numberStr */) {
-  throw new Error('Not implemented');
+function convertNumberToString(numberStr) {
+  let write = '';
+  for (let index = 0; index < numberStr.length; index += 1) {
+    const a = numberStr[index];
+    if (index === numberStr.length - 1) {
+      switch (a) {
+        case '-':
+          write += 'minus';
+          break;
+        case '.':
+        case ',':
+          write += 'point';
+          break;
+        case '0':
+          write += 'zero';
+          break;
+        case '1':
+          write += 'one';
+          break;
+        case '2':
+          write += 'two';
+          break;
+        case '3':
+          write += 'three';
+          break;
+        case '4':
+          write += 'four';
+          break;
+        case '5':
+          write += 'five';
+          break;
+        case '6':
+          write += 'six';
+          break;
+        case '7':
+          write += 'seven';
+          break;
+        case '8':
+          write += 'eight';
+          break;
+        case '9':
+          write += 'nine';
+          break;
+        default:
+          write += '';
+      }
+    }
+    if (index < numberStr.length - 1) {
+      switch (a) {
+        case '-':
+          write += 'minus ';
+          break;
+        case '.':
+        case ',':
+          write += 'point ';
+          break;
+        case '0':
+          write += 'zero ';
+          break;
+        case '1':
+          write += 'one ';
+          break;
+        case '2':
+          write += 'two ';
+          break;
+        case '3':
+          write += 'three ';
+          break;
+        case '4':
+          write += 'four ';
+          break;
+        case '5':
+          write += 'five ';
+          break;
+        case '6':
+          write += 'six ';
+          break;
+        case '7':
+          write += 'seven ';
+          break;
+        case '8':
+          write += 'eight ';
+          break;
+        case '9':
+          write += 'nine ';
+          break;
+        default:
+          write += ' ';
+      }
+    }
+  }
+  return write;
 }
 
 /**
@@ -179,8 +269,17 @@ function convertNumberToString(/* numberStr */) {
  *  '0123210'   => true
  *  'qweqwe'    => false
  */
-function isPalindrome(/* str */) {
-  throw new Error('Not implemented');
+function isPalindrome(str) {
+  let leftInd = 0;
+  let rightInd = str.length - 1;
+  while (leftInd < rightInd) {
+    if (str[leftInd] !== str[rightInd]) {
+      return false;
+    }
+    leftInd += 1;
+    rightInd -= 1;
+  }
+  return true;
 }
 
 /**
@@ -197,8 +296,14 @@ function isPalindrome(/* str */) {
  *  'qwerty', 'Q'     => -1
  *  'qwerty', 'p'     => -1
  */
-function getIndexOf(/* str, letter */) {
-  throw new Error('Not implemented');
+function getIndexOf(str, letter) {
+  let i = -1;
+  for (let index = 0; index < str.length; index += 1) {
+    if (str[index] === letter) {
+      i = index;
+    }
+  }
+  return i;
 }
 
 /**
@@ -216,8 +321,14 @@ function getIndexOf(/* str, letter */) {
  *  12345, 0    => false
  *  12345, 6    => false
  */
-function isContainNumber(/* num, digit */) {
-  throw new Error('Not implemented');
+function isContainNumber(num, digit) {
+  const num1 = String(num);
+  for (let index = 0; index < num1.length; index += 1) {
+    if (+num1[index] === digit) {
+      return true;
+    }
+  }
+  return false;
 }
 
 /**
@@ -233,8 +344,25 @@ function isContainNumber(/* num, digit */) {
  *  [2, 3, 9, 5] => 2       => 2 + 3 === 5 then balance element is 9 and its index = 2
  *  [1, 2, 3, 4, 5] => -1   => no balance element
  */
-function getBalanceIndex(/* arr */) {
-  throw new Error('Not implemented');
+function getBalanceIndex(arr) {
+  for (let i = 0; i < arr.length; i += 1) {
+    let sumLeft = 0;
+    let sumRight = 0;
+    let j = 0;
+    let k = arr.length - 1;
+    while (j < i) {
+      sumLeft += arr[j];
+      j += 1;
+    }
+    while (k > i) {
+      sumRight += arr[k];
+      k -= 1;
+    }
+    if (sumLeft === sumRight) {
+      return i;
+    }
+  }
+  return -1;
 }
 
 /**
@@ -277,8 +405,22 @@ function getSpiralMatrix(/* size */) {
  *    [7, 8, 9]         [9, 6, 3]
  *  ]                 ]
  */
-function rotateMatrix(/* matrix */) {
-  throw new Error('Not implemented');
+function rotateMatrix(matrix) {
+  const n = matrix.length;
+  const matrixNew = matrix;
+  for (let layer = 0; layer < n / 2; layer += 1) {
+    const first = layer;
+    const last = n - 1 - layer;
+    for (let i = first; i < last; i += 1) {
+      const offset = i - first;
+      const top = matrixNew[first][i];
+      matrixNew[first][i] = matrixNew[last - offset][first];
+      matrixNew[last - offset][first] = matrixNew[last][last - offset];
+      matrixNew[last][last - offset] = matrixNew[i][last];
+      matrixNew[i][last] = top;
+    }
+  }
+  return matrixNew;
 }
 
 /**
